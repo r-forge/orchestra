@@ -46,7 +46,7 @@ public class RPlugin extends EBPlugin {
 	private static final RStructureMatcher matcher = new RStructureMatcher();
 	
 	/**
-	 * Start method of the plugin. starts the R engine, and load the jeditr package
+	 * Start method of the plugin. starts the R engine, and load the orchestra package
 	 */
 	@Override
 	public void start() {
@@ -54,7 +54,7 @@ public class RPlugin extends EBPlugin {
 				public void run(){
 					r = ( (REngineService) ServiceManager.getService("com.addictedtor.jedit.rengine.REngineService", "JRI") ).getEngine() ;
 					try {
-						r.parseAndEval("require( 'jeditr', quiet = TRUE )") ;
+						r.parseAndEval("require( 'orchestra', quiet = TRUE )") ;
 					} catch (REngineException e) {
 					} catch (REXPMismatchException e) {
 					}

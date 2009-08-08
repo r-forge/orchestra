@@ -51,7 +51,7 @@ public class JeditRMainLoopCallbacks implements RMainLoopCallbacks {
 		if( prompt.startsWith( "Browse[" ) ){
 			if( browse ){
 				browse = false; 
-				return "jeditr:::.cacheBrowseContext()\n" ;
+				return "orchestra:::.cacheBrowseContext()\n" ;
 			} else{
 				sendLater( new BrowseContextUpdate() ) ;
 			}
