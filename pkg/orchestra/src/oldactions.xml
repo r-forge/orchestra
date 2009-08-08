@@ -1,0 +1,139 @@
+
+  <ACTION NAME="RPlugin.send-function-and-go">
+		<CODE><![CDATA[
+			  import com.addictedtor.workbench.plugin.editor.jedit.powereditor.tools.* ;
+       row = textArea.getCaretLine() ;
+       col = textArea.getCaretPosition() - textArea.getLineStartOffset( row ) + 1 ;
+       file = FilenameTools.cleanFileName( buffer.getPath() ) ;
+       r = com.addictedtor.workbench.plugin.editor.jedit.powereditor.RPlugin.r() ;
+       command = ".err = svTools:::sourcefun('"+file+"', "+row+", "+col+")" ;
+       r.voidEval( command ) ;
+       err = r.eval( "length( .err) ") ;
+       
+       if( err != 0){
+         n = r.eval( "length(.err$line)" ).asInt() ;
+         wm.addDockableWindow("error-list") ;
+         es = new errorlist.DefaultErrorSource( "RPlugin.action.send-file" ) ;
+         for( int i=0; i<n; i++){ 
+           r.voidEval( "i <- 1+" + i ) ;
+           path = r.eval( ".err$file[i]" ).asString() ;
+           line = r.eval( ".err$line[i]" ).asInt() ; 
+           message = r.eval( ".err$message[i]" ).asString() ;
+           es.addError( errorlist.ErrorSource.ERROR, path, line , 0 , 0 , message );
+         }
+         errorlist.ErrorSource.registerErrorSource( es ) ;
+       }
+       ]]>
+		</CODE>
+	</ACTION>
+
+
+	  <ACTION NAME="RPlugin.profile-selection">
+    <CODE>
+		  text = textArea.getSelectedText() ;
+      if(text == null) {
+        text = textArea.getLineText( textArea.getCaretLine() ) ;
+      }
+      r = com.addictedtor.workbench.plugin.editor.jedit.powereditor.RPlugin.r() ;
+      pfile = r.eval( ".prof = tempfile()" ).asString() ;
+      text = "Rprof( .prof )\n"+text+"\nRprof(NULL)" ;
+      runCommandInConsole( view, "R", text ) ;      
+      wm.addDockableWindow("rprofiler") ;
+      prof = wm.getDockableWindow("rprofiler") ;
+      prof.analyze( pfile ) ;
+      r.voidEval( "unlink(.prof) ; rm(.prof)" );
+    </CODE>
+  </ACTION>
+
+  <ACTION NAME="RPlugin.profile-line">
+    <CODE>
+       line = textArea.getLineText( textArea.getCaretLine() ) ;
+       r = com.addictedtor.workbench.plugin.editor.jedit.powereditor.RPlugin.r() ;
+       pfile = r.eval( ".prof = tempfile()" ).asString() ;
+       line = "Rprof( .prof )\n" + line + "\nRprof(NULL)" ;
+       runCommandInConsole( view, "R", line ) ;
+       wm.addDockableWindow("rprofiler") ;
+       prof = wm.getDockableWindow("rprofiler") ;
+       prof.analyze( pfile ) ;
+       r.voidEval( "unlink(.prof) ; rm(.prof)" );
+    </CODE>
+  </ACTION>
+  
+  <ACTION NAME="RPlugin.profile-file">
+    <CODE>
+       import com.addictedtor.workbench.plugin.editor.jedit.powereditor.tools.* ;
+			  file = FilenameTools.cleanFileName( buffer.getPath() ) ;
+       r = com.addictedtor.workbench.plugin.editor.jedit.powereditor.RPlugin.r() ;
+       pfile = r.eval( ".prof = tempfile()" ).asString() ;
+       text = "source('"+file+"')" ;
+       text = "Rprof( .prof )\n"+text+"\nRprof(NULL)" ;
+       runCommandInConsole( view, "R", text ) ;      
+       wm.addDockableWindow("rprofiler") ;
+       prof = wm.getDockableWindow("rprofiler") ;
+       prof.analyze( pfile ) ;
+       r.voidEval( "unlink(.prof) ; rm(.prof)" );
+    </CODE>
+  </ACTION>
+  
+    
+  <!-- help system -->
+	<!--
+  <ACTION NAME="RPlugin.rsitesearch">
+		<CODE>
+      String query = Macros.input(view, "Search on the R search website") ; 
+      if( query != null ){                 
+        wm.addDockableWindow("helptree") ;
+        helptree = wm.getDockableWindow("helptree") ;
+        helptree.rsitesearch( query ) ;
+      }
+		</CODE>
+	</ACTION>
+  -->
+	
+  <ACTION NAME="RPlugin.rhelp">
+    <CODE>
+    kw = textArea.getSelectedText() ;
+    while( kw == null ){
+      kw = Macros.input(view, "What to search") ;
+    }             
+    r = com.addictedtor.workbench.plugin.editor.jedit.powereditor.RPlugin.r() ;
+    r.voidEval( ".search = help('"+ kw + "', htmlhelp = TRUE)" );
+    nresults = r.eval( "length(.search)" ).asInt() ;
+    if( nresults > 0){
+      url = "file:" + r.eval(".search[1]").asString() ;
+      wm.addDockableWindow("infoviewer");
+      help = wm.getDockableWindow("infoviewer");
+      help.gotoURL(url);
+    }
+    </CODE>
+  </ACTION>
+
+  
+  	
+	<ACTION NAME="RPlugin.showObjectsExplorer">
+		<CODE>
+			wm.addDockableWindow("robjectexplorer") ;
+     </CODE>
+  </ACTION>
+	
+	<ACTION NAME="RPlugin.setwdCurrentBuffer">
+		<CODE>        
+			import com.addictedtor.workbench.plugin.editor.jedit.powereditor.tools ; 
+			path = FilenameTools.cleanFilename( buffer.getPath( ) );
+			text = "setwd( dirname( '"+ path +"' )  )" ;
+			runCommandInConsole( view, "R", text ) ;      
+     </CODE>
+  </ACTION>
+
+  <!-- function popup -->
+
+<!--
+<ACTION NAME="RPlugin.function-popup">
+	<CODE>
+action = new com.addictedtor.workbench.plugin.editor.jedit.powereditor.actions.FunctionPopupAction( textArea); 
+action.actionPerformed( null ); 
+	</CODE>
+	
+</ACTION>
+-->
+

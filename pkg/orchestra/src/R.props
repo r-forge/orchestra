@@ -1,0 +1,58 @@
+plugin.com.addictedtor.jedit.R.RPlugin.name=R
+plugin.com.addictedtor.jedit.R.RPlugin.author=Romain Francois
+plugin.com.addictedtor.jedit.R.RPlugin.version=0.0
+plugin.com.addictedtor.jedit.R.RPlugin.activate=startup
+plugin.com.addictedtor.jedit.R.RPlugin.usePluginHome=true
+plugin.com.addictedtor.jedit.R.RPlugin.description=Embeds R into jedit
+
+plugin.com.addictedtor.jedit.R.RPlugin.depend.0=jdk 1.5
+plugin.com.addictedtor.jedit.R.RPlugin.depend.1=jedit 04.03.17.00
+plugin.com.addictedtor.jedit.R.RPlugin.depend.2=plugin console.ConsolePlugin 4.3
+plugin.com.addictedtor.jedit.R.RPlugin.depend.3=plugin errorlist.ErrorListPlugin 1.7
+plugin.com.addictedtor.jedit.R.RPlugin.depend.4=plugin sidekick.SideKickPlugin 0.7.5
+
+# menu
+RPlugin.send-selection-and-go.label=Send selected text or current line to the R console
+RPlugin.send-selection-and-move.label=Send selected text or current line to the R console
+
+RPlugin.send-current-line-and-go.label=Send current line to the R console
+RPlugin.send-current-line-and-move.label=Send current line to the R console and move down one line
+
+RPlugin.send-current-expression-and-go.label=Send current top level expression
+RPlugin.send-current-expression-and-move.label=Send current top level expression and move to the next one
+
+RPlugin.send-file-and-go.label=Send current file to R
+
+RPlugin.generateRoxygenTemplate.label=Generate Roxygen template
+
+plugin.com.addictedtor.jedit.R.RPlugin.menu.label=R
+plugin.com.addictedtor.jedit.R.RPlugin.menu = \
+	RPlugin.send-selection-and-go \
+	RPlugin.send-current-line-and-go \
+	RPlugin.send-current-line-and-move \
+	RPlugin.send-selection \
+	RPlugin.send-file-and-go \
+	- \
+	RPlugin.generateRoxygenTemplate
+
+
+# sidekick stuff
+sidekick.parser.R.label=R
+mode.R.sidekick.parser=R
+
+sidekick.parser.DESCRIPTION.label=DESCRIPTION
+mode.DESCRIPTION.sidekick.parser=DESCRIPTION
+
+sidekick.parser.NAMESPACE.label=NAMESPACE
+mode.NAMESPACE.sidekick.parser=NAMESPACE
+
+sidekick.parser.Rd.label=Rd
+mode.Rd.sidekick.parser=Rd
+
+# dockables 
+robjectexplorer.label=R Objects Explorer
+robjectexplorer.title=R Objects Explorer
+
+renvironmentexplorer.label=R Environment Explorer
+renvironmentexplorer.title=R Environment Explorer
+
