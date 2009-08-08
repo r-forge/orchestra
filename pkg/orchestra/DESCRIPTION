@@ -9,5 +9,5 @@ Description: support for embedding R into jedit
 License: GPL (>=3)
 LazyLoad: yes
 LazyData: no
-Depends:rJava,svTools,svMisc,JavaGD
+Depends: rJava (>=0.7-0), svTools (>=0.0-10), svMisc (>=0.9-50), JavaGD
 
