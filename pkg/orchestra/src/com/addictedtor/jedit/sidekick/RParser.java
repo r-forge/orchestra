@@ -26,7 +26,6 @@ import org.gjt.sp.jedit.Buffer;
 import org.gjt.sp.jedit.EditPane;
 import org.gjt.sp.jedit.View;
 import org.gjt.sp.jedit.buffer.JEditBuffer;
-import org.gjt.sp.jedit.gui.CompletionPopup;
 import org.gjt.sp.jedit.textarea.JEditTextArea;
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.REngine;
@@ -34,6 +33,7 @@ import org.rosuda.REngine.REngineException;
 import org.rosuda.REngine.RList;
 
 import sidekick.SideKickCompletion;
+import sidekick.SideKickCompletionPopup;
 import sidekick.SideKickParsedData;
 import sidekick.SideKickParser;
 
@@ -205,7 +205,7 @@ public class RParser extends SideKickParser {
 	}
 
 	PowerEditorCompletionPopup popup = null ;
-	public CompletionPopup getCompletionPopup(View view, int caretPosition, SideKickCompletion complete, boolean active){
+	public SideKickCompletionPopup getCompletionPopup(View view, int caretPosition, SideKickCompletion complete, boolean active){
 		popup= new PowerEditorCompletionPopup(view, this, caretPosition, complete, active) ;
 		return popup ;
 	}

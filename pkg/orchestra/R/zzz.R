@@ -5,14 +5,12 @@ textArea <- NULL
 
 .onLoad <- function( libname, pkgname){
 
-	if( Sys.getenv( "JEDITR_HOME", unset = "" ) == "" ){
+	if( Sys.getenv( "ORCHESTRA_HOME", unset = "" ) == "" ){
 		cat( "this package is only useful when used with jedit\n" )
-		
-		
 	} else{
 		.flushBrowseContext() 
 		
-		nm <- getNamespace( "jeditr") 
+		nm <- getNamespace( "orchestra") 
 		makeActiveBinding( "buffer", function(arg){
 			v <- .jcall( "org/gjt/sp/jedit/jEdit", "Lorg/gjt/sp/jedit/View;", "getActiveView" )
 			if(missing(arg)){
@@ -56,7 +54,9 @@ textArea <- NULL
 }
 
 .onUnload <- function( libname, pkgname){
-	unlockBinding( "buffer", .GlobalEnv )
-	rm( list = "buffer", envir = .GlobalEnv )
+	if( Sys.getenv( "ORCHESTRA_HOME", unset = "" ) == "" ){
+		unlockBinding( "buffer", .GlobalEnv )
+		rm( list = "buffer", envir = .GlobalEnv )
+	}
 }
 
