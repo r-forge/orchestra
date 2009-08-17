@@ -1,6 +1,10 @@
-.PHONY: mylibs
-all: mylibs
-$(SHLIB):
-mylibs:
-	ant
+.PHONY: all mylibs
+
+	all: $(SHLIB)
+	$(SHLIB): mylibs
+	
+	mylibs:
+		ant
+
+
 
