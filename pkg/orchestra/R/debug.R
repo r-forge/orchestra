@@ -4,8 +4,7 @@
 
 #' function called at the Browse[]> prompt to cache the sys.frames and
 #' sys.calls at that time
-.cacheBrowseContext <- function( ){
-	from <- .debugenv[["from"]]
+.cacheBrowseContext <- function( from = .debugenv[["from"]] ){
 	
 	stack <- sys.calls()
 	.debugenv[["callstack"]]  <- if( from == 0 ) head( stack, -1 ) else stack[1:from]

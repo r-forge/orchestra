@@ -1,8 +1,6 @@
 PHONY: all mylibs
+all: $(SHLIB)
+$(SHLIB): mylibs
 
-	all: $(SHLIB)
-	$(SHLIB): mylibs
-
-	mylibs:
-		ant
-
+mylibs:
+	ant
