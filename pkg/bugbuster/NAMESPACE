@@ -1,9 +1,0 @@
-
-importFrom( utils, limitedLabels )
-
-export( getBrowseFrom )
-export( setBrowseFrom )
-export( cacheBrowseContext )
-export( getBrowseContext )
-export( getBrowseContextSize )
-export( flushBrowseContext )
