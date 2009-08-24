@@ -6,7 +6,9 @@ import javax.swing.SwingUtilities;
 
 import org.gjt.sp.util.Log;
 import org.rosuda.JRI.Rengine;
+import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.REngine;
+import org.rosuda.REngine.REngineException;
 import org.rosuda.REngine.JRI.JRIEngine;
 
 import com.addictedtor.jedit.R.RPlugin;
@@ -32,6 +34,8 @@ public class RConsole extends Shell {
 	
 	private RConsoleSync sync; 
 	
+	private String continuePrompt ; 
+	
 	/**
 	 * Constructor, holds a reference to the R engine and start the console loop thread
 	 */
@@ -46,6 +50,11 @@ public class RConsole extends Shell {
 			Rengine re = ((JRIEngine)r).getRni() ;
 			re.addMainLoopCallbacks(callbacks);
 			re.startMainLoop() ;
+			try {
+				continuePrompt = r.parseAndEval( "getOption( 'continue' )" ).asString() ;
+			} catch (REXPMismatchException e) {
+			} catch (REngineException e) {
+			}
 		}
 		
 		SwingUtilities.invokeLater( new Runnable(){
@@ -105,6 +114,10 @@ public class RConsole extends Shell {
 
 	public RConsoleSync getSync() {
 		return sync ;
+	}
+	
+	public String getContinuePrompt( ){
+		return continuePrompt ; 
 	}
 
 }

@@ -274,11 +274,11 @@ public class EnvironmentPanel extends JPanel implements EBComponent {
 		RList locations ; 
 
 		try {
-			names     = r.parseAndEval("orchestra:::.getBrowseCallStackNames()").asStrings() ;
-			n         = r.parseAndEval("orchestra:::.getBrowseFrameStackSize()").asInteger() ;
+			names     = r.parseAndEval( "sapply( sys.calls(), function(x) limitedLabels(x)[[1]] ) ").asStrings()  ;
+			n         = names.length ;
 			locations = r.parseAndEval("orchestra:::.getBrowseCallStackLocations()").asList() ;
 			for( int i=0; i<n; i++){
-				cmd = "orchestra:::.getBrowseFrame("+(i+1)+")" ;
+				cmd = "sys.frames()[["+(i+1)+"]]" ;
 				REXPReference env = (REXPReference)r.parseAndEval(cmd, r.globalEnv, false ) ;
 				REXP stackloc = locations.at(i) ;
 				DebugEnvironment deb = new DebugEnvironment( env, names[i], stackloc ) ; 

@@ -25,7 +25,7 @@ import console.ConsolePlugin;
 public class JeditRMainLoopCallbacks implements RMainLoopCallbacks {
 
 	private RConsole rconsole ;
-	private boolean browse = true ; 
+	private boolean browse = true ;
 	
 	public JeditRMainLoopCallbacks(RConsole rconsole) {
 		this.rconsole = rconsole; 
@@ -49,18 +49,13 @@ public class JeditRMainLoopCallbacks implements RMainLoopCallbacks {
 	public String rReadConsole(Rengine engine, String prompt, int addToHistory) {
 		
 		if( prompt.startsWith( "Browse[" ) ){
-			if( browse ){
-				browse = false; 
-				return "orchestra:::.cacheBrowseContext()\n" ;
-			} else{
-				sendLater( new BrowseContextUpdate() ) ;
-			}
+			browse = true; 
+			sendLater( new BrowseContextUpdate() ) ;
+		} else if( prompt.equals(rconsole.getContinuePrompt() ) ){
+			/* dummy, maybe set something up for completions */
 		} else {
-			browse = true;
-			/* FIXME: this is not quite correct */
-			if( prompt.startsWith(">") ){
-				sendLater( new BrowseContextFlush() ) ;
-			}
+			browse = false;
+			sendLater( new BrowseContextFlush() ) ;
 		}
 		
 		/* stop the animation when we get a prompt */
@@ -155,4 +150,12 @@ public class JeditRMainLoopCallbacks implements RMainLoopCallbacks {
 		}) ;
 	}
 
+	/** 
+	 * Is R currently inside an an environment browser
+	 * @return true if R is currently inside a browser call
+	 */
+	public boolean isBrowsing(){
+		return browse ;
+	}
+	
 }
