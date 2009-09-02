@@ -5,8 +5,8 @@ import org.rosuda.REngine.REXPMismatchException;
 @SuppressWarnings("serial")
 public class REXPMismatchBuildException extends RBuildException {
 
-	public REXPMismatchBuildException( REXPMismatchException e){
-		super( "REXPMismatchException exception : " + e.getMessage()) ; 
+	public REXPMismatchBuildException( String message, REXPMismatchException e){
+		super( "REXPMismatchException exception : " + message + " : " + e.getMessage()) ; 
 	}
 	
 }

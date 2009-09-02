@@ -1,8 +1,8 @@
 package org.rproject.ant;
 
 import org.apache.tools.ant.BuildException;
+import org.rosuda.REngine.REXP;
 import org.rosuda.REngine.REXPMismatchException;
-import org.rosuda.REngine.REngineException;
 
 /**
  * Ant task that sets a property to contain the result of
@@ -20,15 +20,14 @@ public class RSet extends RTask {
 	
 	@Override
 	public void execute() throws BuildException {
-		String res ;
+		REXP res = run( code ) ;
+		String out;
 		try {
-			res = R.parseAndEval( code ).asString() ;
-		} catch (REngineException e) {
-			throw new REngineBuildException( e ) ;
+			out = res.asString();
 		} catch (REXPMismatchException e) {
-			throw new REXPMismatchBuildException( e ) ;
+			throw new REXPMismatchBuildException( "converting to String", e ) ;
 		}
-		getProject().setProperty( property, res ) ;
+		getProject().setProperty( property, out ) ;
 	}
 	
 	/**
@@ -47,6 +46,10 @@ public class RSet extends RTask {
 	 */
 	public void setProperty( String property ){
 		this.property = property ; 
+	}
+	
+	public void addText(String code){
+		this.code = code;
 	}
 
 }

@@ -4,6 +4,8 @@
 #  :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1:
 
 # {{{ ant setup 
+SEP <- .Platform$path.sep
+
 # {{{ set env variables
 
 # this is only to get JAVA_HOME, see http://tr.im/xHiZ
@@ -75,6 +77,12 @@ Sys.setenv( LOCALCLASSPATH = LOCALCLASSPATH )
 # {{{ classpath
 # TODO: maybe add the ant-r.jar here
 CLASSPATH <- Sys.getenv( "CLASSPATH", unset = "" )
+RJAVATOOLS <- system.file( "java", package = "rJava" )
+if( CLASSPATH == "" ){
+	CLASSPATH <- RJAVATOOLS
+} else{
+	CLASSPATH <- paste( CLASSPATH, RJAVATOOLS, sep = SEP )
+}
 # }}}
 
 # {{{ ANT_ARGS
@@ -104,7 +112,6 @@ if( show_help ){
 # }}}
 
 # {{{ R/rJava/JRI stuff
-SEP <- .Platform$path.sep
 
 # {{{ R_HOME
 R_HOME <- R.home()

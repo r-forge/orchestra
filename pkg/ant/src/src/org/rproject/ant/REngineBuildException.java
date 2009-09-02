@@ -5,8 +5,8 @@ import org.rosuda.REngine.REngineException;
 @SuppressWarnings("serial")
 public class REngineBuildException extends RBuildException {
 
-	public REngineBuildException( REngineException e){
-		super( "REngine exception : " + e.getMessage()) ; 
+	public REngineBuildException( String message, REngineException e){
+		super( "REngine exception : " + message + " : " + e.getMessage()) ; 
 	}
 	
 }
