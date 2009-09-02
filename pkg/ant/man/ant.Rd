@@ -29,6 +29,14 @@ otherwise the command is returned.
 \references{
 The Apache ant project: \url{http://ant.apache.org/}
 }
+\examples{
+	\dontrun{
+		build.file <- system.file( "examples", "build.xml", package = "ant" )
+		owd <- setwd( dirname( build.file ) )
+		ant()
+		setwd( owd )
+	}
+}
 \author{
 Romain Francois <francoisromain@free.fr>
 }

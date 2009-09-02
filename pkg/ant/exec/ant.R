@@ -3,7 +3,15 @@
 # R version of the ant.sh script file
 #  :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1:
 
-# {{{ ant setup 
+# {{{ ant setup
+
+arguments <- commandArgs( TRUE )
+installer <- FALSE
+test <- arguments %in% "--installer"
+if( any( test ) ){
+	arguments <- arguments[ !test ]
+	installer <- TRUE
+}
 SEP <- .Platform$path.sep
 
 # {{{ set env variables
@@ -16,16 +24,19 @@ require( "rJava", quietly = TRUE, character.only = TRUE)
 JAVA_HOME <- .jcall( "java/lang/System", "S", "getProperty", "java.home" ) 
 Sys.setenv( "JAVA_HOME" = JAVA_HOME )
 
-ANT_HOME <- system.file( "apache-ant", package = "ant" ) 
+ANT_HOME <- if( installer ){
+	tools:::file_path_as_absolute( "../inst/apache-ant" )
+} else {
+	system.file( "apache-ant", package = "ant" )
+}
+cat( "ant home : " , ANT_HOME, "\n" )
 Sys.setenv( "ANT_HOME" = ANT_HOME )
 
 ANT_LIB <- file.path( ANT_HOME, "lib" )
 Sys.setenv( ANT_LIB = ANT_LIB )
-
 # }}}
 
 # {{{ Extract launch and ant arguments, (see details below).
-arguments <- commandArgs( TRUE )
 ant_exec_args <- ""
 no_config <- FALSE
 use_jikes_default <- FALSE

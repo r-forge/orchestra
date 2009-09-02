@@ -12,7 +12,6 @@
   <property name="compiler.source"        value="1.5" />
   
   <property name="install.dir" value="../inst" />
-  <property name="target.dir" value="${install.dir}/java" />
   <property name="javadoc.dir" value="${install.dir}/javadoc" />
   <!--}}}-->
     
@@ -27,8 +26,6 @@
 		<mkdir dir="build" />
 		
 		<mkdir dir="${javadoc.dir}" />
-		<mkdir dir="${target.dir}" />
-		
 	</target>
 	<!-- }}} -->
 	

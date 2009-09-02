@@ -9,3 +9,7 @@ ant <- function( run = TRUE, arguments = paste( commandArgs(TRUE), collapse = " 
     }
 }
 
+ant.task.error.handler <- function( e ){
+	self <- get( "self", .GlobalEnv )
+	self$fails()
+}

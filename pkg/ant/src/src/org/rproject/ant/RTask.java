@@ -1,6 +1,7 @@
 package org.rproject.ant;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.rosuda.REngine.REXP;
 import org.rosuda.REngine.REXPMismatchException;
@@ -27,6 +28,10 @@ public abstract class RTask extends Task implements MessageListener {
 	
 	protected static REXPReference project  = null ;
 	
+	protected boolean failonerror; 
+	
+	protected boolean failure = false; 
+	
 	/**
 	 * Initializes R
 	 */
@@ -51,12 +56,53 @@ public abstract class RTask extends Task implements MessageListener {
 	}
 
 	protected REXP run(String code) throws BuildException {
+		REXP res = null ; 
+		if( failonerror ){
+			try{
+				setCustomErrorHandler( ) ;
+				failure = false; 
+				res =  run_(code) ;
+				if( failure ){
+					throw new BuildException( "R error" ) ;
+				}
+			} catch( BuildException e){
+				log( "error " + e.getMessage() , Project.MSG_ERR ) ;
+				System.exit( 1 ) ;
+			} finally{
+				resetCustomErrorHandler( ) ;
+			}
+		} else {
+			res = run_(code) ;
+		}
+		return res ; 
+	}
+	
+	private void resetCustomErrorHandler() {
+		try {
+			R.parseAndEval( "options( error = NULL )" );
+		} catch (REngineException e) {
+			throw new REngineBuildException("resetting the custom error handler", e) ;
+		} catch (REXPMismatchException e) {
+			throw new REXPMismatchBuildException("resetting the custom error handler", e) ; 
+		} 
+	}
+
+	private void setCustomErrorHandler() throws BuildException {
+		try {
+			R.parseAndEval( "options( error = ant:::ant.task.error.handler )" );
+		} catch (REngineException e) {
+			throw new REngineBuildException("setting the custom error handler", e) ;
+		} catch (REXPMismatchException e) {
+			throw new REXPMismatchBuildException("setting the custom error handler", e) ; 
+		} 
+	}
+
+	protected REXP run_(String code) throws BuildException {
 		REXP out = null ;
 		buffer = new StringBuilder() ; 
 		loop.setMessageListener( this ) ;
 		
 		/* assign the project R variable to the project */
-		/* TODO: maybe do this only once */
 		if( project == null ) {
 			try{
 				project = createJavaObjectReference(getProject())  ;
@@ -66,6 +112,14 @@ public abstract class RTask extends Task implements MessageListener {
 			} catch (REXPMismatchException e) {
 				throw new REXPMismatchBuildException( "assigning 'project' ", e ) ;
 			}
+		}
+		
+		try{
+			R.assign( "self", createJavaObjectReference(this) ) ;
+		} catch( REngineException e){
+			throw new REngineBuildException( "assigning 'self'", e ) ;
+		} catch( REXPMismatchException e){
+			throw new REXPMismatchBuildException( "assigning 'self'", e ) ;
 		}
 		
 		/* run the code */
@@ -83,7 +137,7 @@ public abstract class RTask extends Task implements MessageListener {
 	}
 
 	/* this should be in the JRIEngine class */
-	private REXPReference createJavaObjectReference(Object o){
+	private static REXPReference createJavaObjectReference(Object o){
 		REXPReference ref = null; 
 		int key = R.lock() ;
 		try {
@@ -108,6 +162,14 @@ public abstract class RTask extends Task implements MessageListener {
 			log( buffer.toString() ) ;
 			buffer.setLength(0) ;
 		} 
+	}
+	
+	public void setFailonerror(boolean failonerror){
+		this.failonerror = failonerror ; 
+	}
+	
+	public void fails(){
+		failure = true ; 
 	}
 
 }
