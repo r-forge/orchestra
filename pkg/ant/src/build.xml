@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<project name="ant-r" default="all" basedir=".">
+
+	<!--{{{ Properties -->
+  <property name="compiler.debug"         value="on" />
+  <property name="compiler.debuglevel"    value="lines,vars,source" />
+  <property name="compiler.optimize"      value="off" />
+  <property name="compiler.deprecation"   value="off" />
+  <property name="compiler.verbose"       value="off" />
+  <property name="compiler.nowarn"        value="off" />
+  <property name="compiler.target"        value="1.5" />
+  <property name="compiler.source"        value="1.5" />
+  
+  <property name="install.dir" value="../inst" />
+  <property name="target.dir" value="${install.dir}/java" />
+  <property name="javadoc.dir" value="${install.dir}/javadoc" />
+  <!--}}}-->
+    
+	<!--{{{ clean -->
+	<target name="clean">
+		<delete dir="build" />
+		<delete dir="jars" />
+		<delete dir="${javadoc.dir}" />
+	</target>
+
+	<target name="init" depends="clean"> 	
+		<mkdir dir="build" />
+		
+		<mkdir dir="${javadoc.dir}" />
+		<mkdir dir="${target.dir}" />
+		
+	</target>
+	<!-- }}} -->
+	
+	<!--{{{ compile -->
+	
+	<path id="project.classpath">
+		<pathelement location="lib/REngine.jar" />
+		<pathelement location="lib/JRIEngine.jar" />
+		<pathelement location="${install.dir}/apache-ant/lib/ant.jar" />
+	</path>
+	
+	<target name="compile" depends="init">
+		<javac srcdir="src" 
+			destdir="build"  
+			includeJavaRuntime="yes"
+			debug="${compiler.debug}"
+      debuglevel="${compiler.debuglevel}"
+      optimize="${compiler.optimize}"
+      deprecation="${compiler.deprecation}"
+      verbose="${compiler.verbose}"
+      nowarn="${compiler.nowarn}"
+      target="${compiler.target}"
+      source="${compiler.source}" >
+			<classpath refid="project.classpath" />
+		</javac>	
+	</target>
+
+	<target name="build" depends="compile">
+		<jar jarfile="${install.dir}/apache-ant/lib/ant-r.jar">
+			<fileset dir="build" />
+		</jar>
+	</target>
+	
+	
+	<target name="masquerade" >
+		 <mkdir dir="mask" />
+		 <unjar src="${install.dir}/apache-ant/lib/ant.jar" dest="mask" />
+		 <copy file="defaults.properties" tofile="mask/org/apache/tools/ant/taskdefs/defaults.properties" />
+		 <echo 
+		 	file="mask/org/apache/tools/ant/taskdefs/defaults.properties"
+		 	append="true">
+
+# R specific tasks
+r-run=org.rproject.ant.RRun
+r-set=org.rproject.ant.RSet
+		 	</echo>
+		 	<jar jarfile="${install.dir}/apache-ant/lib/ant.jar">
+				<fileset dir="mask">
+				<include name="**"/>
+				</fileset>
+			</jar>
+		 
+		 <delete dir="mask" />
+	</target>
+	
+	
+	<target name="all" depends="build" />
+
+</project>
