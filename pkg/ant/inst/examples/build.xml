@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<project default="test">
+
+<target name="test">
+
+ <!-- set the r.home property -->
+ <r-set property="rhome" code="R.home()" />
+ 
+ <!-- set the rversion property -->
+ <r-set property="rversion">version$version.string</r-set>
+
+ <!-- run some code, use CDATA since we need the "<" sign -->
+ <r-run><![CDATA[
+ 	rjavahome <- system.file( package = 'rJava' )
+ ]]></r-run>
+ 
+ <!-- grab the property -->
+ <r-set property="rjavahome" code="rjavahome" />
+ 
+ <!-- <r-set> can also use CDATA -->
+ <r-set property="rjavaversion"><![CDATA[
+ require( utils )
+ packageDescription( 'rJava', fields='Version' )
+ ]]></r-set> 
+ 
+ <!-- write on the output stream -->
+ <r-run>
+ cat( "hello " )
+ cat( "world\n", file = stderr() )
+ print( stats::rnorm( 20 ) )
+ </r-run>
+ 
+ <!-- using the project variable -->
+ <r-run>
+ project$setProperty( "alphabet", paste( letters, collapse = "" ) )
+ </r-run>
+ 
+ <!-- using the self variable -->
+ <r-run><![CDATA[
+ cat( "target name : ",  self$getOwningTarget()$getName(), "\n" )
+ location <- self$getLocation()
+ cat( "location of this task : ", 
+ 	location$getFileName(), 
+ 	" (line ",location$getLineNumber(),")\n", sep = "")
+ ]]></r-run>
+ 
+ 
+ <!-- display results -->
+ <echo>
+  	R home        : ${rhome}
+  	R version     : ${rversion}
+  	rJava home    : ${rjavahome}
+  	rJava version : ${rjavaversion}
+  	alphabet      : ${alphabet}
+ </echo>
+
+</target>
+
+</project>
+
