@@ -6,8 +6,8 @@ import org.rosuda.REngine.REngineException;
 
 public class RSet extends RTask {
 
-	private String code; 
-	private String property ;
+	private String code = "" ; 
+	private String property = "r.default.property" ;
 	
 	@Override
 	public void execute() throws BuildException {

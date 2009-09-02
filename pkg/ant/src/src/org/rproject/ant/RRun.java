@@ -6,7 +6,7 @@ import org.rosuda.REngine.REngineException;
 
 public class RRun extends RTask {
 
-	private String code; 
+	private String code = "" ; 
 	
 	@Override
 	public void execute() throws BuildException {
