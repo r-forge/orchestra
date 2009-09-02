@@ -4,6 +4,14 @@ import org.apache.tools.ant.BuildException;
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.REngineException;
 
+/**
+ * Ant task that runs R code
+ * 
+ * <r-run code="x = rnorm(10)" />
+ * 
+ * @author Romain Francois <francoisromain@free.fr>
+ *
+ */
 public class RRun extends RTask {
 
 	private String code = "" ; 
@@ -19,6 +27,9 @@ public class RRun extends RTask {
 		}
 	}
 	
+	/**
+	 * @param code sets the R code to run
+	 */
 	public void setCode( String code){
 		this.code = code ; 
 	}
