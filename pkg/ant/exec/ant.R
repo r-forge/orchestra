@@ -142,7 +142,7 @@ Sys.setenv( LD_LIBRARY_PATH = LD_LIBRARY_PATH )
 # {{{ make the command
 ant_exec_command <- sprintf(
 	'exec "%s" -Djava.library.path="%s" %s -classpath "%s" -Dant.home="%s" -Dant.library.dir="%s" %s org.apache.tools.ant.launch.Launcher -cp "%s" %s', 
-	JAVACMD, LD_LIBRARY_PATH, ANT_OPTS, LOCALCLASSPATH, ANT_HOME, ANT_LIB, ANT_ARGS, CLASSPATH, ant_exec_args )
+	JAVACMD, LD_LIBRARY_PATH, ANT_OPTS, LOCALCLASSPATH, ANT_HOME, ANT_LIB, ANT_ARGS, CLASSPATH, arguments )
 if( ant_exec_debug ){
 	cat( ant_exec_command , "\n" )
 } else{ 
