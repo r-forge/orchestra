@@ -57,6 +57,8 @@
 	</target>
 
 	<target name="build" depends="compile">
+		<unjar src="lib/REngine.jar" dest="build" />
+		<unjar src="lib/JRIEngine.jar" dest="build" />
 		<jar jarfile="${install.dir}/apache-ant/lib/ant-r.jar">
 			<fileset dir="build" />
 		</jar>
