@@ -1,7 +1,6 @@
 \name{ant-package}
 \Rdversion{1.1}
 \alias{ant-package}
-\alias{ant}
 \docType{package}
 \title{
 R specific version of ant
