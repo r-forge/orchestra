@@ -87,6 +87,11 @@ r-set=org.rproject.ant.RSet
 	
 	<target name="javadoc" depends="init"
 		description="Compile the Javadoc API documentation">
+		
+<echo file="${javadoc.dir}/package-list">
+org.rproject.ant
+</echo>
+		
 		<javadoc destdir="${javadoc.dir}" author="true" 
 			version="true" use="true" private="true"
 			windowtitle="Remote R Server Javadoc"
