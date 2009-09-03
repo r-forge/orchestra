@@ -94,7 +94,7 @@ org.rproject.ant
 		
 		<javadoc destdir="${javadoc.dir}" author="true" 
 			version="true" use="true" private="true"
-			windowtitle="Remote R Server Javadoc"
+			windowtitle="Ant R package javadoc"
 			classpathref="project.classpath">
 
 		    <fileset dir="src">	
