@@ -42,7 +42,6 @@ ANT_HOME <- if( installer ){
 } else {
 	system.file( "apache-ant", package = "ant" )
 }
-cat( "ant home : " , ANT_HOME, "\n" )
 Sys.setenv( "ANT_HOME" = ANT_HOME )
 
 ANT_LIB <- file.path( ANT_HOME, "lib" )
