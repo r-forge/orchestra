@@ -1,10 +1,21 @@
 #!/bin/env Rscript                                                         
 
-# R version of the ant.sh script file
+# {{{ Copyright (c) 2009, Romain Francois <francoisromain@free.fr>
 #  :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1:
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License. }}}
 
-# {{{ ant setup
-
+# {{{ first find out if we are installing the ant package or if it is already installed
 arguments <- commandArgs( TRUE )
 installer <- FALSE
 test <- arguments %in% "--installer"
@@ -13,7 +24,9 @@ if( any( test ) ){
 	installer <- TRUE
 }
 SEP <- .Platform$path.sep
+# }}}
 
+# {{{ ant setup
 # {{{ set env variables
 
 # this is only to get JAVA_HOME, see http://tr.im/xHiZ
@@ -155,6 +168,7 @@ LD_LIBRARY_PATH <- if( LD_LIBRARY_PATH == "" ){
 }
 Sys.setenv( LD_LIBRARY_PATH = LD_LIBRARY_PATH )
 
+# }}}
 # }}}
 
 # {{{ make the command

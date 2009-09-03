@@ -61,7 +61,9 @@
 		</jar>
 	</target>
 	
-	
+	<!-- this target must be called to alter the defaults.properties 
+	     file in the ant.jar library whenever a new R specific task is added
+	     the task also should be added in the <echo> call below -->
 	<target name="masquerade" >
 		 <mkdir dir="mask" />
 		 <unjar src="${install.dir}/apache-ant/lib/ant.jar" dest="mask" />
@@ -76,14 +78,32 @@ r-set=org.rproject.ant.RSet
 		 	</echo>
 		 	<jar jarfile="${install.dir}/apache-ant/lib/ant.jar">
 				<fileset dir="mask">
-				<include name="**"/>
+					<include name="**"/>
 				</fileset>
 			</jar>
 		 
 		 <delete dir="mask" />
 	</target>
 	
+	<target name="javadoc" depends="init"
+		description="Compile the Javadoc API documentation">
+		<javadoc destdir="${javadoc.dir}" author="true" 
+			version="true" use="true" private="true"
+			windowtitle="Remote R Server Javadoc"
+			classpathref="project.classpath">
+
+		    <fileset dir="src">	
+		    	<include name="**"/>
+		    </fileset>
+
+		    <doctitle><![CDATA[<h1>Ant R tasks javadoc</h1>]]></doctitle>
+		    <bottom><![CDATA[<i>Copyright &#169; 2009, Romain Francois <a href="mailto://francoisromain@free.fr">francoisromain@free.fr</a></i>]]></bottom>
+		    <link href="http://java.sun.com/j2se/1.5.0/docs/api/"/>
+		    <link href="http://www.rforge.net/org/docs/" />
+		    <link href="."/>
+		</javadoc>
+	</target>
 	
-	<target name="all" depends="build" />
+	<target name="all" depends="build,javadoc" />
 
 </project>

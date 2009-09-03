@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2009, Romain Francois <francoisromain@free.fr>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 package org.rproject.ant;
 
 import org.apache.tools.ant.BuildException;
@@ -12,7 +28,7 @@ import org.rosuda.REngine.JRI.JRIEngine;
 /**
  * Super class of all R specific tasks 
  * 
- * @author romain
+ * @author Romain Francois <francoisromain@free.fr>
  *
  */
 public abstract class RTask extends Task implements MessageListener {
@@ -153,17 +169,6 @@ public abstract class RTask extends Task implements MessageListener {
 		return ref ; 
 	}
 	
-	public void send( Message message){
-		buffer.append( message.getMessage() ) ;
-	}
-	
-	public void flush(){
-		if(buffer.length() != 0) {
-			log( buffer.toString() ) ;
-			buffer.setLength(0) ;
-		} 
-	}
-	
 	public void setFailonerror(boolean failonerror){
 		this.failonerror = failonerror ; 
 	}
@@ -172,4 +177,22 @@ public abstract class RTask extends Task implements MessageListener {
 		failure = true ; 
 	}
 
+	/**
+	 * {@link MessageListener} implementation, add the message to a message buffer 
+	 */
+	public void send( Message message){
+		buffer.append( message.getMessage() ) ;
+	}
+	
+	/**
+	 * {@link MessageListener} implementation, log the message buffer
+	 */
+	public void flush(){
+		if(buffer.length() != 0) {
+			log( buffer.toString() ) ;
+			buffer.setLength(0) ;
+		} 
+	}
+	
+	
 }

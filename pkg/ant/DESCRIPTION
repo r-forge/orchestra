@@ -7,7 +7,7 @@ Author: Romain Francois
 Maintainer: Romain Francois <francoisromain@free.fr>
 Description: Version of the ant apache build tool, with a few R specific tasks
 	to ease use of ant within an R package
-License: Apache (>= 2.0)
+License: Apache License (== 2.0)
 LazyLoad: yes
 LazyData: no
 Depends: rJava (>= 0.7-0)
