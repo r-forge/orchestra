@@ -12,8 +12,8 @@ Version of the apache ant build tool tweaked with a few R specific tasks
 \tabular{ll}{
 Package: \tab ant\cr
 Type: \tab Package\cr
-Version: \tab 0.0-1\cr
-Date: \tab 2009-09-02\cr
+Version: \tab 0.0-3\cr
+Date: \tab 2009-09-04\cr
 License: \tab Apache (>=2.0)\cr
 LazyLoad: \tab yes\cr
 }
