@@ -8,7 +8,7 @@ Apache Ant build tool
 Apache Ant build tool
 }
 \usage{
-ant(run = TRUE, arguments = paste(commandArgs(TRUE), collapse = " "))
+ant(run = TRUE, arguments = commandArgs(TRUE) )
 }
 \arguments{
   \item{run}{

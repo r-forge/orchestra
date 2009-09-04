@@ -25,6 +25,8 @@ Maintainer: Romain Francois <francoisromain@free.fr>
 }
 \references{
 	The Apache ant project: \url{http://ant.apache.org/}
+	
+	\link[ant:../javadoc/index]{The Java API of this package}
 }
 \keyword{ package }
 

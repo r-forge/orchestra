@@ -18,14 +18,7 @@
 	<!--{{{ clean -->
 	<target name="clean">
 		<delete dir="build" />
-		<delete dir="jars" />
 		<delete dir="${javadoc.dir}" />
-	</target>
-
-	<target name="init" depends="clean"> 	
-		<mkdir dir="build" />
-		
-		<mkdir dir="${javadoc.dir}" />
 	</target>
 	<!-- }}} -->
 	
@@ -37,7 +30,8 @@
 		<pathelement location="${install.dir}/apache-ant/lib/ant.jar" />
 	</path>
 	
-	<target name="compile" depends="init">
+	<target name="compile">
+		<mkdir dir="build" />
 		<javac srcdir="src" 
 			destdir="build"  
 			includeJavaRuntime="yes"
@@ -85,9 +79,13 @@ r-set=org.rproject.ant.RSet
 		 <delete dir="mask" />
 	</target>
 	
-	<target name="javadoc" depends="init"
+	<property name="rdoc" value="../html/00Index.html" />  
+	
+	<target name="javadoc"
 		description="Compile the Javadoc API documentation">
 		
+		<mkdir dir="${javadoc.dir}" />
+
 <echo file="${javadoc.dir}/package-list">
 org.rproject.ant
 </echo>
@@ -100,15 +98,18 @@ org.rproject.ant
 		    <fileset dir="src">	
 		    	<include name="**"/>
 		    </fileset>
-
+		    
 		    <doctitle><![CDATA[<h1>Ant R tasks javadoc</h1>]]></doctitle>
-		    <bottom><![CDATA[<i>Copyright &#169; 2009, Romain Francois <a href="mailto://francoisromain@free.fr">francoisromain@free.fr</a></i>]]></bottom>
+		    <bottom>
+		    <![CDATA[
+		    <i>Copyright &#169; 2009, Romain Francois <a href="mailto://francoisromain@free.fr">francoisromain@free.fr</a></i>
+		    ]]></bottom>
 		    <link href="http://java.sun.com/j2se/1.5.0/docs/api/"/>
 		    <link href="http://www.rforge.net/org/docs/" />
 		    <link href="."/>
 		</javadoc>
 	</target>
 	
-	<target name="all" depends="build,javadoc" />
+	<target name="all" depends="clean,build,javadoc" />
 
 </project>

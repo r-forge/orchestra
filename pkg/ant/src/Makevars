@@ -3,4 +3,6 @@ all: $(SHLIB)
 $(SHLIB): mylibs
 mylibs:
 	$(R_HOME)/bin/Rscript ../exec/ant.R --installer
+clean:
+	$(R_HOME)/bin/Rscript ../exec/ant.R --installer clean
 
