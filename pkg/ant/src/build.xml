@@ -101,10 +101,8 @@ org.rproject.ant
 		    
 		    <doctitle><![CDATA[<h1>Ant R tasks javadoc</h1>]]></doctitle>
 		    <bottom>
-		    <![CDATA[
-		    <i>Copyright &#169; 2009, Romain Francois <a href="mailto://francoisromain@free.fr">francoisromain@free.fr</a></i>
-		    ]]></bottom>
-		    <link href="http://java.sun.com/j2se/1.5.0/docs/api/"/>
+		    <![CDATA[<i>Copyright &#169; 2009, Romain Francois <a href="mailto://francoisromain@free.fr">francoisromain@free.fr</a></i>]]></bottom>
+		    <!--<link href="http://java.sun.com/j2se/1.5.0/docs/api/"/>-->
 		    <link href="http://www.rforge.net/org/docs/" />
 		    <link href="."/>
 		</javadoc>

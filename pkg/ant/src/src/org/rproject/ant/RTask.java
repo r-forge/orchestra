@@ -153,6 +153,7 @@ public abstract class RTask extends Task implements MessageListener {
 	}
 
 	/* this should be in the JRIEngine class */
+	@Deprecated
 	private static REXPReference createJavaObjectReference(Object o){
 		REXPReference ref = null; 
 		int key = R.lock() ;

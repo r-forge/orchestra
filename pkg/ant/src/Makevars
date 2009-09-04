@@ -1,6 +1,5 @@
-PHONY: all mylibs
-all: $(SHLIB)
-$(SHLIB): mylibs
+PHONY: mylibs
+$(SHLIB):
 mylibs:
 	$(R_HOME)/bin/Rscript ../exec/ant.R --installer
 clean:
