@@ -11,7 +11,7 @@
   <property name="compiler.target"        value="1.5" />
   <property name="compiler.source"        value="1.5" />
   
-  <property name="install.dir" value="../inst" />
+  <property name="install.dir" value=".." />
   <property name="javadoc.dir" value="${install.dir}/javadoc" />
   <!--}}}-->
     

@@ -38,7 +38,7 @@ JAVA_HOME <- .jcall( "java/lang/System", "S", "getProperty", "java.home" )
 Sys.setenv( "JAVA_HOME" = JAVA_HOME )
 
 ANT_HOME <- if( installer ){
-	tools:::file_path_as_absolute( "../inst/apache-ant" )
+	tools:::file_path_as_absolute( "../apache-ant" )
 } else {
 	system.file( "apache-ant", package = "ant" )
 }
