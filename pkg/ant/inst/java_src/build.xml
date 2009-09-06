@@ -108,6 +108,8 @@ org.rproject.ant
 		</javadoc>
 	</target>
 	
-	<target name="all" depends="clean,build,javadoc" />
+	<target name="all" depends="clean,build,javadoc">
+		<delete dir="build" />
+	</target>
 
 </project>
