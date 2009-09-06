@@ -1,8 +1,8 @@
 Package: ant
 Type: Package
 Title: Version of ant specific to R
-Version: 0.0-3
-Date: 2009-09-04
+Version: 0.0-4
+Date: 2009-09-06
 Author: Romain Francois
 Maintainer: Romain Francois <francoisromain@free.fr>
 Description: Version of the ant apache build tool, with a few R specific tasks
