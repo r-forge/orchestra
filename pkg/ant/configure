@@ -1,5 +1,5 @@
 #!/bin/sh
 
 cd inst/java_src
-${R_HOME}/bin/Rscript ../../exec/ant.R --installer
+"${R_HOME}/bin/Rscript" ../../exec/ant.R --installer
 
