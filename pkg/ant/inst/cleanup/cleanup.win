@@ -1,2 +1,4 @@
 #!/bin/sh
-sh cleanup
+
+"${R_HOME}/bin/Rscript" --vanilla --default-packages="base" cleanup.R
+

@@ -4,6 +4,7 @@ cd inst/java_src
 "${R_HOME}/bin/Rscript" ../../exec/ant.R --installer
 
 cd ../..
-cp inst/cleanup/* .
+cp inst/cleanup/cleanup .
+cp inst/cleanup/cleanup.R .
 chmod +x cleanup*
 
