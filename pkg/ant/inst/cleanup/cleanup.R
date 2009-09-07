@@ -19,11 +19,12 @@ if( file.exists( ooindex.file ) ){
 	
 	# add java specific things
 	txt <- paste( 
-		'</table>\n', 
+		'</table>', 
 		h2( "Java" ), 
-		'<table width="100%">\n',  
+		'<table width="100%">',  
 		line( link( "javadoc" , "../javadoc/index.html" ), "API documentation" ), 
-		"</table>\n"
+		"</table>\n", 
+		sep = "\n"
 	 )
 	ooindex[ bottom ] <- txt
 	

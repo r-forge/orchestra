@@ -3,3 +3,7 @@
 cd inst/java_src
 "${R_HOME}/bin/Rscript" ../../exec/ant.R --installer
 
+cd ../..
+cp inst/cleanup/* .
+chmod +x cleanup*
+
