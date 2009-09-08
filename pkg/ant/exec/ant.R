@@ -88,6 +88,16 @@ if( JAVACMD == "" ){
     	JAVACMD <- cmd
     } else if( file.exists( cmd <- file.path( JAVA_HOME, "bin", "java" ) ) ){
     	JAVACMD <- cmd
+    } else if( file.exists( cmd <- file.path( JAVA_HOME, "jre", "bin", "java.exe" ) ) ){
+    	JAVACMD <- cmd
+    } else if( file.exists( cmd <- file.path( JAVA_HOME, "bin", "java.exe" ) ) ){
+    	JAVACMD <- cmd
+    } else if( file.exists( cmd <- file.path( JAVA_HOME, "jre", "bin", "javaw.exe" ) ) ){
+    	JAVACMD <- cmd
+    } else if( file.exists( cmd <- file.path( JAVA_HOME, "bin", "javaw.exe" ) ) ){
+    	JAVACMD <- cmd
+    } else {
+    	stop( paste( "could not find java command, is java installed in : '" , JAVA_HOME , "' ?" ) )
     }
 }
 # }}}
