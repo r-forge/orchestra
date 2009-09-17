@@ -57,6 +57,7 @@ public abstract class RTask extends Task implements MessageListener {
 		try {
 			r = new JRIEngine(new String[]{ "--vanilla" }, null ) ;
 			r.parseAndEval( "require( 'ant', quietly= TRUE, character.only = TRUE )" ) ;
+			r.parseAndEval( ".jinit()" ) ;
 			r.getRni().addMainLoopCallbacks( loop ) ;
 			r.getRni().startMainLoop() ;
 		} catch (REngineException e) {

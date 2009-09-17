@@ -34,7 +34,6 @@ rscript <- function( package, script, arguments = commandArgs(TRUE), run = TRUE,
 	}
 }
 
-
 ant.task.error.handler <- function( e ){
 	self <- get( "self", .GlobalEnv )
 	self$fails()

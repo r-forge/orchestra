@@ -68,13 +68,13 @@ public class AntRMainLoopCallbacks implements RMainLoopCallbacks {
 	public void rLoadHistory(Rengine arg0, String arg1) {}
 
 	/**
-	 * Waits 100ms and return an empty string
+	 * Unused, continually waits and (never) return null
 	 */
-	public String rReadConsole(Rengine arg0, String arg1, int arg2) {
+	public synchronized String rReadConsole(Rengine arg0, String arg1, int arg2) {
 		try{
-			Thread.sleep( 100 ) ;
+			while( true){ wait( 100 ) ; }
 		} catch( InterruptedException e){}
-		return " " ;
+		return null ;
 	}
 
 	/**
