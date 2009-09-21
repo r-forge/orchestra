@@ -1,13 +1,13 @@
 Package: orchestra
 Type: Package
 Title: support for embedding R into jedit 
-Version: 0.0-5
-Date: 2009-08-23
+Version: 0.0-6
+Date: 2009-09-21
 Author: Romain Francois, Bernd Bischl
 Maintainer: Romain Francois <francoisromain@free.fr>
 Description: support for embedding R into jedit 
 License: GPL (>=3)
 LazyLoad: yes
 LazyData: no
-Depends: rJava (>= 0.7-0), svTools (>= 0.0-10), svMisc (>= 0.9-48), JavaGD
-
+Depends: rJava (>= 0.8-0), svTools (>= 0.0-10), svMisc (>= 0.9-48), JavaGD
+Imports: ant (>= 0.0-8)
