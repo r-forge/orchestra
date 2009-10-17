@@ -119,7 +119,7 @@ public class RCompletion extends Completion {
 		int lock_id = r.lock(); 
 
 		try{
-			String cmd = "utils:::help( '" + completion + "' , package = '"+ position +"', htmlhelp=TRUE, chmhelp = FALSE )[1] " ;
+			String cmd = "help( '" + completion + "' , package = '"+ position +"', help_type='html' )[1] " ;
 			page = new RHelpPage( r.parseAndEval(cmd).asString() ) ;
 		} catch( Exception e){
 
@@ -150,12 +150,12 @@ public class RCompletion extends Completion {
 	}
 
 	public static RCompletion[] complete(String currentLine) {
-
 		RList result = null;
 		REngine r = RPlugin.getR() ;
+
 		int lock_id = r.lock(); 
 		try {
-			result = r.parseAndEval( "svTools:::CompletePlusWrap('" + currentLine + "') ").asList() ;
+			result = r.parseAndEval( "CompletePlusWrap('" + currentLine + "') ").asList() ;
 		} catch(REXPMismatchException e1) {
 		} catch(REngineException e2){
 		} finally {

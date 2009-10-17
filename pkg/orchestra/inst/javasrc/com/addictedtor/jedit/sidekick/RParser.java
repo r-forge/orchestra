@@ -22,9 +22,12 @@ package com.addictedtor.jedit.sidekick;
 
 import java.io.File;
 
+import javax.swing.JOptionPane;
+
 import org.gjt.sp.jedit.Buffer;
 import org.gjt.sp.jedit.EditPane;
 import org.gjt.sp.jedit.View;
+import org.gjt.sp.jedit.jEdit;
 import org.gjt.sp.jedit.buffer.JEditBuffer;
 import org.gjt.sp.jedit.textarea.JEditTextArea;
 import org.rosuda.REngine.REXPMismatchException;
@@ -42,6 +45,8 @@ import com.addictedtor.jedit.tools.FilenameTools;
 
 import errorlist.DefaultErrorSource;
 import errorlist.ErrorSource;
+
+import org.gjt.sp.util.Log ;
 
 /**
  * Parser for R files
@@ -155,6 +160,7 @@ public class RParser extends SideKickParser {
 		int start = ta.getLineStartOffset(ta.getCaretLine());
 
 		String currentLine = ta.getText(start, caret - start);
+		Log.log( Log.ERROR, this, currentLine ) ;
 		View view = editPane.getView();
 		String token;
 

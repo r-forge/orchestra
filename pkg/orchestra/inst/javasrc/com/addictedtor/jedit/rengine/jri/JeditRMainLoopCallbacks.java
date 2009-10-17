@@ -46,7 +46,7 @@ public class JeditRMainLoopCallbacks implements RMainLoopCallbacks {
 	 * Waits for user input
 	 */
 	@Override
-	public String rReadConsole(Rengine engine, String prompt, int addToHistory) {
+	public synchronized String rReadConsole(Rengine engine, String prompt, int addToHistory) {
 		
 		if( prompt.startsWith( "Browse[" ) ){
 			browse = true; 

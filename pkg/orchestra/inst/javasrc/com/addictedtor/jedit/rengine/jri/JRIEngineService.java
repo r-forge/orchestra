@@ -1,6 +1,7 @@
 package com.addictedtor.jedit.rengine.jri ;
 
 import org.rosuda.JRI.Rengine;
+import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.REngine;
 import org.rosuda.REngine.REngineException;
 import org.rosuda.REngine.JRI.JRIEngine;
@@ -27,9 +28,10 @@ public class JRIEngineService extends REngineService {
 		String[] args = { "--save" } ;
 		try{
 			engine = new JRIEngine( args ) ;
+			engine.parseAndEval( "{ require( rJava ); .jinit() }" ) ;
 		} catch( REngineException e){
 			System.out.println( "could not create jri engine" ) ;
-		}
+		} catch( REXPMismatchException e){}
 		
 		Rengine rni = null ; 
 		try{
@@ -38,7 +40,6 @@ public class JRIEngineService extends REngineService {
 		} catch( NullPointerException e){
 			System.out.println( "could not get the Rengine" ) ;
 		}
-		
 		return engine; 
 	}
 	
