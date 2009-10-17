@@ -78,8 +78,7 @@ public class RParsedFile {
 
 		String encoding = textArea.getBuffer().getStringProperty(
 				JEditBuffer.ENCODING);
-		String cmd = "try( sidekick( file = '" + FilenameTools.cleanFilename(file)
-		+ "', encoding = '" + encoding + "' ) , silent = TRUE )";
+		String cmd = "try( sidekick( '" + FilenameTools.cleanFilename(file) + "', encoding = '" + encoding + "' ) , silent = TRUE )";
 
 		REngine r = RPlugin.getR();
 		int lock_id = r.lock(); 

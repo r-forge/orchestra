@@ -22,14 +22,12 @@ package com.addictedtor.jedit.sidekick;
 
 import java.io.File;
 
-import javax.swing.JOptionPane;
-
 import org.gjt.sp.jedit.Buffer;
 import org.gjt.sp.jedit.EditPane;
 import org.gjt.sp.jedit.View;
-import org.gjt.sp.jedit.jEdit;
 import org.gjt.sp.jedit.buffer.JEditBuffer;
 import org.gjt.sp.jedit.textarea.JEditTextArea;
+import org.gjt.sp.util.Log;
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.REngine;
 import org.rosuda.REngine.REngineException;
@@ -45,8 +43,6 @@ import com.addictedtor.jedit.tools.FilenameTools;
 
 import errorlist.DefaultErrorSource;
 import errorlist.ErrorSource;
-
-import org.gjt.sp.util.Log ;
 
 /**
  * Parser for R files

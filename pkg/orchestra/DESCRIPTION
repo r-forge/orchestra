@@ -6,7 +6,7 @@ Date: 2009-10-17
 Author: Romain Francois, Bernd Bischl
 Maintainer: Romain Francois <francoisromain@free.fr>
 Description: support for embedding R into jedit 
-License: GPL (>=3)
+License: GPL (>=3.0)
 LazyLoad: yes
 LazyData: no
 Depends: R (>= 2.10.0), rJava (>= 0.8-0), svTools (>= 0.0-12), svMisc (>= 0.9-55), JavaGD, ant (>= 0.0-8)
