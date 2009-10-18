@@ -43,7 +43,6 @@
     <copy todir="${build.classes}" >
     	<fileset dir="${rjava.path}/java" />
     </copy>
-    <delete dir="${build.classes}/boot" />
     <unjar src="${jar_rengine}"             dest="${build.classes}" />
 		<unjar src="${jar_jriengine}"           dest="${build.classes}" />
     <unjar src="${jar_commons_collections}" dest="${build.classes}" />
