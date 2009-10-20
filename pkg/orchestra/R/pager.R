@@ -1,12 +1,10 @@
 
 ._setBuffer <- function( file, synchronize = FALSE ){
-	if( !is.character(file) || length(file) != 1 ){
+	if( !is.character(file) || length(file) != 1L ){
 		stop( "should be a character vector of length one" )
 	}
-	.jcall( "com/addictedtor/jedit/tools/BufferSetter", "V" , "set", 
-		.jnew( "java/lang/String", file ) )
+	.jcall( "com/addictedtor/jedit/tools/BufferSetter", "V" , "set", file )
 	invisible( NULL )
-	
 }
 
 jedit.pager <- function( files, header, title, delete.file ){

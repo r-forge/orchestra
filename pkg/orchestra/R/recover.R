@@ -1,3 +1,5 @@
+.debugenv <- new.env()
+
 #' slightly modified version of recover that works with the
 #' environment browser
 jedit.recover <- function() {

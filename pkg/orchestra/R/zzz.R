@@ -1,29 +1,22 @@
 
 # this is just to make R CMD check happy 
+
+NAMESPACE <- environment()
+
 view <- NULL
 textArea <- NULL
 
-isInJedit <- function(){
-	tryCatch( is( .jfindClass( "org/gjt/sp/jedit/jEdit" ), "jobjRef" ) , Exception = function(e) FALSE )
-}
-
 .onLoad <- function( libname, pkgname){
 	
-	if( ! isInJedit() ){
-		cat( "this package is only useful if used from within jedit" ) 
-	} else{
-		.flushBrowseContext() 
+	.jinit() 
+	
+	isInJedit <- function(){
+		tryCatch( is( .jfindClass( "org/gjt/sp/jedit/jEdit" ), "jobjRef" ) , Exception = function(e) FALSE )
+	}
+
+	if( isInJedit() ){
 		
-		nm <- getNamespace( "orchestra") 
-		makeActiveBinding( "buffer", function(arg){
-			v <- .jcall( "org/gjt/sp/jedit/jEdit", "Lorg/gjt/sp/jedit/View;", "getActiveView" )
-			if(missing(arg)){
-				b <- .jcall( v, "Lorg/gjt/sp/jedit/Buffer;", "getBuffer" )
-				.jcall( b, "S", "getPath" ) 
-			} else{
-				._setBuffer( arg ) 
-			}
-		}, .GlobalEnv )
+		rm( view, textArea, envir = NAMESPACE )
 		
 		makeActiveBinding( "view", function(arg){
 			if( missing(arg) ){
@@ -31,8 +24,9 @@ isInJedit <- function(){
 			} else{
 				stop( "<- is not supported for binding `view` " )
 			}
-		}, nm )
-		
+		}, NAMESPACE )
+				
+				    
 		makeActiveBinding( "textArea", function(arg){
 			if( missing(arg) ){
 				v <- .jcall( "org/gjt/sp/jedit/jEdit", "Lorg/gjt/sp/jedit/View;", "getActiveView" )
@@ -40,13 +34,24 @@ isInJedit <- function(){
 			} else{
 				stop( "<- is not supported for binding `textArea` " )
 			}
-		}, nm )
+		}, NAMESPACE )
+
 		
+		makeActiveBinding( "buffer", function(arg){
+			v <- .jcall( "org/gjt/sp/jedit/jEdit", "Lorg/gjt/sp/jedit/View;", "getActiveView" )
+			if(missing(arg)){
+				b <- .jcall( v, "Lorg/gjt/sp/jedit/Buffer;", "getBuffer" )
+				.jcall( b, "S", "getPath" ) 
+			} else{
+				# ._setBuffer( arg ) 
+			}
+		}, .GlobalEnv )
+
 		# set the options we need
 		options( pager  = jedit.pager   )
 		options( gui    = "jedit"       )
-		options( editor = jedit.editor  )
-		options( error  = jedit.recover )
+		# options( editor = jedit.editor  )
+		# options( error  = jedit.recover )
     	
 		# setup the call back that flushes the browse cache
 		# h <- taskCallbackManager()

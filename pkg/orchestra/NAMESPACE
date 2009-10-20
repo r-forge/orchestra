@@ -1,4 +1,6 @@
 
+import( rJava )
+
 export( view )
 export( textArea )
 
