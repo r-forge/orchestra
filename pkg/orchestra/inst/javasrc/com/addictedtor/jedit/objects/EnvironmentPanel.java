@@ -28,14 +28,14 @@ import org.rosuda.REngine.JRI.JRIEngine;
 
 import com.addictedtor.jedit.R.RPlugin;
 import com.addictedtor.jedit.editbus.AddToBusRunnable;
+import com.addictedtor.jedit.editbus.BrowseContextFlush;
+import com.addictedtor.jedit.editbus.BrowseContextUpdate;
 import com.addictedtor.jedit.editbus.EBCommandDone;
 import com.addictedtor.jedit.error.ExceptionManager;
 import com.addictedtor.jedit.objects.debug.DebugEnvironment;
 import com.addictedtor.jedit.objects.nodes.DebugNodeBuilder;
 import com.addictedtor.jedit.objects.nodes.DebugTreeNode;
 import com.addictedtor.jedit.objects.nodes.REXPReferenceNodeBuilder;
-import com.addictedtor.jedit.rengine.jri.BrowseContextFlush;
-import com.addictedtor.jedit.rengine.jri.BrowseContextUpdate;
 
 /**
  * A panel that displays recursively the content of several R 

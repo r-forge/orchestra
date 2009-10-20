@@ -36,7 +36,7 @@ import org.gjt.sp.jedit.jEdit;
 import org.gjt.sp.jedit.gui.statusbar.StatusWidgetFactory;
 import org.gjt.sp.jedit.gui.statusbar.Widget;
 
-import com.addictedtor.jedit.rengine.jri.RBusyMessage;
+import com.addictedtor.jedit.editbus.RBusyMessage;
 import com.addictedtor.jedit.tools.IconFactory;
 
 /**
