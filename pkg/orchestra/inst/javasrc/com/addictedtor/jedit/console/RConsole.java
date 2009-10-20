@@ -12,7 +12,6 @@ import org.rosuda.REngine.REngineException;
 import org.rosuda.REngine.JRI.JRIEngine;
 
 import com.addictedtor.jedit.R.RPlugin;
-import com.addictedtor.jedit.rengine.jri.JeditRMainLoopCallbacks;
 
 import console.Console;
 import console.Output;
