@@ -30,7 +30,9 @@ public class JRIEngineService extends REngineService {
 		
 		/* so that System.load("jri") failing does not cause System.exit(1), see Rengine */
 		System.setProperty("jri.ignore.ule", "yes" ) ; 		
-		
+	
+		System.setProperty( "java.library.path", "/usr/local/lib/R/lib:/usr/local/lib:/opt/jdk/jre/lib/i386/client:/opt/jdk/jre/lib/i386:/usr/local/lib/R/lib:/usr/local/lib/R/bin:/opt/jdk/jre/lib/i386/client/:/usr/local/lib/R/lib:/usr/local/lib/R/bin::/opt/jdk/jre/lib/i386/client/" ) ;
+	
 		/* use reflection to load the RJavaClassLoader */
 		Class RJCL = null ; 
 		Constructor<?> cons = null ; 
@@ -45,18 +47,22 @@ public class JRIEngineService extends REngineService {
 			rjcl = (ClassLoader) cons.newInstance( "/usr/local/lib/R/library/rJava" , "/usr/local/lib/R/library/rJava/libs" ) ;
 			
 			/* use the rjcl to load the jri library without relying on java.library.path */
+			
 			Method findlib = getProtectedMethod( RJCL, "findLibrary" ) ;
 			boolean access = findlib.isAccessible() ;
 			findlib.setAccessible(true ) ;
-			String jrilib = (String)findlib.invoke( rjcl, new Object[]{ "jri" }) ;
-			findlib.setAccessible(access ) ;
 			
-			System.load( jrilib ) ;
+			String lib = (String)findlib.invoke( rjcl, new Object[]{ "jri" }) ;
+			System.load( lib ) ;
+
+			lib = (String) findlib.invoke( rjcl, new Object[]{ "rJava" } ) ;
+			System.load( lib ) ;
+			
+			findlib.setAccessible(access ) ;
 			
 		} catch( Exception e){
 			e.printStackTrace() ;
 		}
-		Log.log( Log.ERROR, null, rjcl.getClass().getName() ) ;
 		Rengine.jriLoaded = true ;
 		
 		JRIEngine engine = null ; 
