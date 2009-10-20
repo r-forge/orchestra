@@ -21,7 +21,6 @@ import org.rosuda.REngine.REngine;
 import org.rosuda.REngine.REngineException;
 
 import com.addictedtor.jedit.R.RPlugin;
-import com.addictedtor.jedit.rengine.jri.RBusyMessage;
 
 /**
  * Status widget to display R status 
