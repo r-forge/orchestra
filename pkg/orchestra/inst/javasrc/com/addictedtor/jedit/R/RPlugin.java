@@ -5,6 +5,7 @@ import org.gjt.sp.jedit.EBPlugin;
 import org.gjt.sp.jedit.msg.EditPaneUpdate;
 import org.gjt.sp.jedit.msg.ViewUpdate;
 import org.rosuda.REngine.REngine;
+import org.rosuda.REngine.JRI.JRIEngine;
 
 import com.addictedtor.jedit.matcher.RStructureMatcher;
 import com.addictedtor.jedit.statusbar.RStatusWidgetFactory;
@@ -42,6 +43,16 @@ public class RPlugin extends EBPlugin {
 	 */
 	@Override
 	public void start() {
+		
+		// This is a bit hairy but it retrieves the JRIEngine reflectively 
+		// this plugin is loaded after the orchestra_trigger plugin
+		try{
+			Class<?> OP = Class.forName("com.addictedtor.orchestra.OrchestraPlugin") ;
+			r = (JRIEngine) OP.getMethod("getREngine", (Class<?>)null).invoke(null, (Object[])null );
+		} catch( Exception e){
+			e.printStackTrace() ;
+		}
+		
 		/* 
 		 AutomaticFunctionPopupThread popupThread = new AutomaticFunctionPopupThread(); 
 		popupThread.start() ; 
