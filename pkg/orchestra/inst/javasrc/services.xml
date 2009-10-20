@@ -3,11 +3,6 @@
 
 <SERVICES>
 
-	<!-- Rengine -->
-	<SERVICE CLASS="com.addictedtor.jedit.rengine.REngineService" NAME="JRI">
-		new com.addictedtor.jedit.rengine.jri.JRIEngineService();
-	</SERVICE>
-
 	<!-- Console -->
   <SERVICE CLASS="console.Shell" NAME="R">
        new com.addictedtor.jedit.console.RConsole();

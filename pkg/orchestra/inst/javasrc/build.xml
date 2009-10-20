@@ -9,6 +9,7 @@
 	
 	<property name="jar_rengine" 		        value="lib/rosuda/REngine.jar" />
 	<property name="jar_jriengine" 	            value="lib/rosuda/JRIEngine.jar" />
+
   <property name="jar_commons_collections"    value="lib/commons/commons-collections-3.2.1.jar" />
   <property name="jar_commons_lang" 	        value="lib/commons/commons-lang-2.4.jar" />
 	<property name="jar_jedit" 			        value="${jedit.install.dir}/jedit.jar" />
@@ -43,8 +44,10 @@
     <copy todir="${build.classes}" >
     	<fileset dir="${rjava.path}/java" />
     </copy>
+    <!-- 
     <unjar src="${jar_rengine}"             dest="${build.classes}" />
 		<unjar src="${jar_jriengine}"           dest="${build.classes}" />
+		-->
     <unjar src="${jar_commons_collections}" dest="${build.classes}" />
     <unjar src="${jar_commons_lang}"        dest="${build.classes}" />
     <unjar src="${rjava.path}/jri/JRI.jar"  dest="${build.classes}" />
