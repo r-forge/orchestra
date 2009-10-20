@@ -3,10 +3,14 @@
 view <- NULL
 textArea <- NULL
 
-.onLoad <- function( libname, pkgname){
+isInJedit <- function(){
+	tryCatch( is( .jfindClass( "org/gjt/sp/jedit/jEdit" ), "jobjRef" ) , Exception = function(e) FALSE )
+}
 
-	if( Sys.getenv( "ORCHESTRA_HOME", unset = "" ) == "" ){
-		cat( "this package is only useful when used with jedit\n" )
+.onLoad <- function( libname, pkgname){
+	
+	if( ! isInJedit() ){
+		cat( "this package is only useful if used from within jedit" ) 
 	} else{
 		.flushBrowseContext() 
 		
