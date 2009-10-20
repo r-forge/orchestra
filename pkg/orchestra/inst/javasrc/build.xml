@@ -41,16 +41,8 @@
 	<target name="build.prepare" depends="clean">
 	 	<mkdir dir="${build.dir}" />
 	 	<mkdir dir="${build.classes}" />
-    <copy todir="${build.classes}" >
-    	<fileset dir="${rjava.path}/java" />
-    </copy>
-    <!-- 
-    <unjar src="${jar_rengine}"             dest="${build.classes}" />
-		<unjar src="${jar_jriengine}"           dest="${build.classes}" />
-		-->
     <unjar src="${jar_commons_collections}" dest="${build.classes}" />
     <unjar src="${jar_commons_lang}"        dest="${build.classes}" />
-    <unjar src="${rjava.path}/jri/JRI.jar"  dest="${build.classes}" />
   </target>
 		
 	<!-- just to make eclipse happy, so that we can 
