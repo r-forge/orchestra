@@ -16,94 +16,57 @@
  */
 package org.rproject.ant;
 
-import org.rosuda.JRI.RMainLoopCallbacks;
-import org.rosuda.JRI.Rengine;
+import org.rosuda.REngine.REngine ;
+import org.rosuda.REngine.REngineOutputInterface ;
+import org.rosuda.REngine.REngineCallbacks ;
 
 /**
- * Dummy implementation of the main loop callbacks, 
- * used to grab output and send them as messages to a
- * MessageListener
- * 
+ * REngine callbacks. Only output callbacks are implemented since
+ * ant is supposed to be used non interactively
+ *
  * @author Romain Francois <francoisromain@free.fr>
  *
  */
-public class AntRMainLoopCallbacks implements RMainLoopCallbacks {
+public class AntRMainLoopCallbacks implements REngineCallbacks, REngineOutputInterface {
 
 	/**
 	 * The message listener that grabs the messages
 	 */
 	private MessageListener listener = null ;
 	
-	/**
-	 * Does nothing
+	
+	/** called when R prints output to the console.
+	 *  @param eng calling engine
+	 *  @param text text to display in the console
+	 *  @param oType output type (0=regular, 1=error/warning)
 	 */
-	public void rBusy(Rengine arg0, int arg1) {}
-
-	/**
-	 * Send an error message and return null
-	 * 
-	 * @return always null 
+	 public void RWriteConsole(REngine eng, String text, int oType){
+			if( listener != null){
+				listener.send( new Message( text, oType ) ) ;
+			}
+	 }
+	
+	
+	/** Send the message to the message listener
+	 *
+	 *  @param eng calling engine
+	 *  @param text text to display in the message
 	 */
-	public String rChooseFile(Rengine arg0, int arg1) {
-		if( listener != null ){
-			listener.send( new Message( "Cannot choose a file within ant" , Message.ERROR) ) ;
-		}
-		return null; 
-	}
-
-	/**
-	 * Call the flush method of the associated message listener
-	 * 
-	 * @see MessageListener#flush()
-	 */
-	public void rFlushConsole(Rengine arg0) {
-		if( listener != null ){
-			listener.flush() ;
+	public void RShowMessage(REngine eng, String text){
+		 if( listener != null ){
+			listener.send( new Message( text ) ) ;
 		}
 	}
 	
-	/**
-	 * Does nothing
+	/** Call the flush method of the associated message listener
+	 *  @param eng calling engine
 	 */
-	public void rLoadHistory(Rengine arg0, String arg1) {}
-
-	/**
-	 * Unused, continually waits and (never) return null
-	 */
-	public synchronized String rReadConsole(Rengine arg0, String arg1, int arg2) {
-		try{
-			while( true){ wait( 100 ) ; }
-		} catch( InterruptedException e){}
-		return null ;
+	public void RFlushConsole(REngine eng){
+		 if( listener != null ){
+		 	 listener.flush() ;
+		 }
 	}
-
-	/**
-	 * Does nothing
-	 */
-	public void rSaveHistory(Rengine arg0, String arg1) {}
-
-	/**
-	 * Send the message to the message listener
-	 * 
-	 * @see MessageListener#send(Message)
-	 */
-	public void rShowMessage(Rengine arg0, String arg1) {
-		if( listener != null ){
-			listener.send( new Message( arg1) ) ;
-		}
-	}
-
-	/**
-	 * Send the message to the message listener
-	 * 
-	 * @see MessageListener#send(Message)
-	 */
-	public void rWriteConsole(Rengine arg0, String arg1, int arg2) {
-		if( listener != null){
-			listener.send( new Message( arg1, arg2 ) ) ;
-		}
-	}
-
+  
 	/**
 	 * Set the message listener (typically a instance of {@link RTask})
 	 * 
