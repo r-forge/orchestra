@@ -33,8 +33,6 @@ public interface MessageListener {
 	
 	/**
 	 * Flush the listener
-	 * 
-	 * @see AntRMainLoopCallbacks#rFlushConsole(org.rosuda.JRI.Rengine)
 	 */
 	public void flush() ; 
 }
